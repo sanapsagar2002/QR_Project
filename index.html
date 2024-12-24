@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section-block {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            width: 30%;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .section:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Dashboard</h1>
+    <div class="section-block">
+        <div class="section" id="education">Education</div>
+        <div class="section" id="medical">Medical</div>
+        <div class="section" id="sports">Sports</div>
+    </div>
+
+    <div id="formContainer" class="hidden form-container">
+        <form id="dynamicForm" action="/submit" method="POST" enctype="multipart/form-data">
+            <div id="formContent"></div>
+            <button type="button" id="addCertificate">Add More Certificates</button>
+            <button type="button" id="saveButton">Save</button></button>
+            <button type="button" id="editButton">Edit</button>
+            <button type="submit">Final Submit</button>
+            <button type="button" id="backButton">Back To Dashboard </button>
+        </form>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+        const formContainer = document.getElementById('formContainer');
+        const formContent = document.getElementById('formContent');
+
+        sections.forEach(section => {
+            section.addEventListener('click', () => {
+                formContainer.classList.remove('hidden');
+
+                if (section.id === 'education') {
+                    formContent.innerHTML = `
+                        <h3>10th</h3>
+                        <label for="tenthBoard">Board:</label>
+                        <input type="text" id="tenthBoard" name="tenthBoard" required>
+                        <label for="tenthYear">Year of Passing:</label>
+                        <input type="number" id="tenthYear" name="tenthYear" required>
+                        <label for="tenthPercentage">Percentage/CGPA:</label>
+                        <input type="text" id="tenthPercentage" name="tenthPercentage" required>
+                        <label for="tenthCertificate">Certificate:</label>
+                        <input type="file" id="tenthCertificate" name="tenthCertificate" accept=".pdf,.jpg,.jpeg">
+
+                        <h3>12th</h3>
+                        <label for="twelfthBoard">Board:</label>
+                        <input type="text" id="twelfthBoard" name="twelfthBoard" required>
+                        <label for="twelfthYear">Year of Passing:</label>
+                        <input type="number" id="twelfthYear" name="twelfthYear" required>
+                        <label for="twelfthPercentage">Percentage/CGPA:</label>
+                        <input type="text" id="twelfthPercentage" name="twelfthPercentage" required>
+                        <label for="twelfthCertificate">Certificate:</label>
+                        <input type="file" id="twelfthCertificate" name="twelfthCertificate" accept=".pdf,.jpg,.jpeg">
+
+                        <h3>Undergraduate</h3>
+                        <label for="ugDegree">Degree:</label>
+                        <input type="text" id="ugDegree" name="ugDegree" required>
+                        <label for="ugSpecialization">Specialization:</label>
+                        <input type="text" id="ugSpecialization" name="ugSpecialization" required>
+                        <label for="ugUniversity">University:</label>
+                        <input type="text" id="ugUniversity" name="ugUniversity" required>
+                        <label for="ugYearOfPassing">Year of Passing:</label>
+                        <input type="number" id="ugYearOfPassing" name="ugYearOfPassing" required>
+                        <label for="ugPercentage">Percentage/CGPA:</label>
+                        <input type="text" id="ugPercentage" name="ugPercentage" required>
+                        <label for="ugCertificate">Certificate:</label>
+                        <input type="file" id="ugCertificate" name="ugCertificate" accept=".pdf,.jpg,.jpeg">
+
+                        <h3>Postgraduate (Optional)</h3>
+                        <label for="pgDegree">Degree:</label>
+                        <input type="text" id="pgDegree" name="pgDegree">
+                        <label for="pgSpecialization">Specialization:</label>
+                        <input type="text" id="pgSpecialization" name="pgSpecialization">
+                        <label for="pgUniversity">University:</label>
+                        <input type="text" id="pgUniversity" name="pgUniversity">
+                        <label for="pgYearOfPassing">Year of Passing:</label>
+                        <input type="number" id="pgYearOfPassing" name="pgYearOfPassing">
+                        <label for="pgPercentage">Percentage/CGPA:</label>
+                        <input type="text" id="pgPercentage" name="pgPercentage">
+                        <label for="pgCertificate">Certificate:</label>
+                        <input type="file" id="pgCertificate" name="pgCertificate" accept=".pdf,.jpg,.jpeg">
+                    `;
+                } else if (section.id === 'medical') {
+                    formContent.innerHTML = '<h3>Medical Form Coming Soon...</h3>';
+                } else if (section.id === 'sports') {
+                    formContent.innerHTML = '<h3>Sports Form Coming Soon...</h3>';
+                }
+            });
+        });
+
+        document.getElementById('addCertificate').addEventListener('click', () => {
+            const additionalCertField = document.createElement('div');
+            additionalCertField.innerHTML = `
+                <label for="additionalCertifications">Additional Certificate:</label>
+                <input type="file" name="additionalCertifications" accept=".pdf,.jpg,.jpeg">
+            `;
+            formContent.appendChild(additionalCertField);
+        });
+
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Form save successfully!');
+        });
+
+        document.getElementById('editButton').addEventListener('click', () => {
+            alert('You can now edit the form.');
+        });
+
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Form submitted successfully!');
+        });
+    </script>
+</body>
+
+</html>
